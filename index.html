@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Japan Trip 2025 — Victor</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#eff1f5;--card-bg:#ffffff;--header-bg:#ffffff;--tab-bg:#ffffff;--filter-bg:#fafafa;
+  --resa-bg:#101014;--resa-item-bg:#1c1c24;--resa-item-border:#2c2c38;
+  --border:#e8e8eb;--border-light:#f0f0f3;
+  --text:#111111;--text-title:#111111;--text-dim:#888888;--text-faint:#aaaaaa;--text-body:#444444;
+  --chip-bg:#f5f5f7;--tag-bg:#f4f4f5;--tag-border:#ebebed;--hover-bg:#fafafa;
+  --amber-bg:#fffcf0;--amber-border:#f0b429;--amber-text:#6b5000;--amber-box-border:#f0e5a0;
+  --info-border:#dddddd;--info-text:#666666;--info-bg:#f9f9f9;
+  --book-border:#e53935;--book-text:#e53935;--book-bg:#fff5f5;
+  --conf-border:#22a55a;--conf-text:#1b7a3d;--conf-bg:#f0fdf4;
+  --map-border:#2980B9;--map-text:#2980B9;--map-bg:#eef6fc;
+  --party-bg:#fff0f6;--party-border:#ffcce5;--party-text:#d44092;
+  --depart-bg:#f0f7ff;--depart-border:#c5dff5;--depart-text:#1565c0;
+  --booked-bg:#eefbf1;--booked-border:#b8e6c4;--booked-text:#1b7a3d;
+}
+body.dark{
+  --bg:#0b0b10;--card-bg:#16161d;--header-bg:#13131a;--tab-bg:#13131a;--filter-bg:#101017;
+  --resa-bg:#050508;--resa-item-bg:#1a1a22;--resa-item-border:#2a2a36;
+  --border:#26262f;--border-light:#1e1e26;
+  --text:#f0f0f0;--text-title:#f5f5f5;--text-dim:#9a9aa5;--text-faint:#7a7a86;--text-body:#c7c7d1;
+  --chip-bg:#1a1a22;--tag-bg:#1e1e26;--tag-border:#2a2a34;--hover-bg:#1c1c24;
+  --amber-bg:#241f0d;--amber-border:#f0b429;--amber-text:#e8c97a;--amber-box-border:#4a3f18;
+  --info-border:#333340;--info-text:#c5c5cf;--info-bg:#191921;
+  --book-border:#ff6b61;--book-text:#ff8078;--book-bg:#2a1414;
+  --conf-border:#4ade80;--conf-text:#4ade80;--conf-bg:#0f2318;
+  --map-border:#5aa9e6;--map-text:#5aa9e6;--map-bg:#10202c;
+  --party-bg:#2a1420;--party-border:#5c2540;--party-text:#ff8fc0;
+  --depart-bg:#0f1e2e;--depart-border:#254060;--depart-text:#6bb3f0;
+  --booked-bg:#0f2318;--booked-border:#255c3a;--booked-text:#4ade80;
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;min-height:100vh;font-size:14px;transition:background .25s,color .25s;}
+a{color:inherit;text-decoration:none;}
+.header{background:var(--header-bg);border-bottom:1px solid var(--border);padding:22px 20px 16px;text-align:center;position:relative;transition:background .25s,border-color .25s;}
+.header h1{font-size:20px;font-weight:800;color:var(--text-title);letter-spacing:.8px;}
+.header .sub{font-size:12px;color:var(--text-dim);margin-top:3px;}
+.theme-toggle{position:absolute;top:18px;right:16px;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--card-bg);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;color:var(--text);transition:all .2s;}
+.theme-toggle:hover{background:var(--hover-bg);}
+.chips{display:flex;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.chip{background:var(--chip-bg);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--text-dim);}
+.chip strong{color:var(--text);font-weight:700;}
+.resa-bar{background:var(--resa-bg);padding:10px 14px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;transition:background .25s;}
+.resa-lnk{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#fff;background:var(--resa-item-bg);border:1px solid var(--resa-item-border);border-radius:20px;padding:6px 13px;transition:all .15s;}
+.resa-lnk:hover{background:#2a2a36;}
+.resa-lnk .dot{width:6px;height:6px;border-radius:50%;background:#4ade80;}
+.tabs{display:flex;justify-content:center;gap:4px;padding:11px 14px;background:var(--tab-bg);border-bottom:1px solid var(--border);flex-wrap:wrap;transition:background .25s,border-color .25s;}
+.tab-btn{padding:6px 15px;border-radius:6px;border:1px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:transparent;color:var(--text-dim);transition:all .15s;}
+.tab-btn:hover{background:var(--hover-bg);}
+.tab-btn.active{background:var(--text-title);color:var(--bg);border-color:var(--text-title);}
+.city-filter{display:flex;gap:6px;padding:9px 14px;overflow-x:auto;background:var(--filter-bg);border-bottom:1px solid var(--border);scrollbar-width:none;transition:background .25s,border-color .25s;}
+.city-filter::-webkit-scrollbar{display:none;}
+.cf-btn{padding:4px 13px;border-radius:20px;cursor:pointer;font-size:11px;font-weight:600;white-space:nowrap;transition:all .15s;background:transparent;}
+.days-list{padding:12px 14px;display:flex;flex-direction:column;gap:8px;max-width:760px;margin:0 auto;}
+.day-card{background:var(--card-bg);border-radius:10px;border:1px solid var(--border);overflow:hidden;transition:box-shadow .2s,background .25s,border-color .25s;}
+.day-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.day-card.expanded{box-shadow:0 3px 14px rgba(0,0,0,.1);}
+.day-header{padding:13px 14px;cursor:pointer;display:flex;align-items:center;gap:11px;user-select:none;border-left:3px solid transparent;}
+.day-num{width:36px;height:36px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;}
+.day-meta{flex:1;min-width:0;}
+.day-date{font-size:10px;color:var(--text-faint);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.day-title{font-weight:700;font-size:14px;color:var(--text-title);margin-top:2px;}
+.highlights{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap;}
+.hl-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:var(--tag-bg);color:var(--text-dim);border:1px solid var(--tag-border);}
+.chevron{color:var(--text-faint);font-size:12px;flex-shrink:0;transition:transform .2s;}
+.day-content{border-top:1px solid var(--border-light);padding:0 14px 10px;}
+.activity{display:flex;gap:9px;padding:9px 0;border-bottom:1px solid var(--border-light);}
+.activity:last-child{border-bottom:none;}
+.act-time{width:42px;font-size:11px;color:var(--text-faint);padding-top:1px;flex-shrink:0;}
+.act-icon{font-size:15px;flex-shrink:0;padding-top:1px;}
+.act-body{flex:1;min-width:0;}
+.act-name{font-weight:600;font-size:13px;color:var(--text-title);}
+.act-sub{font-size:11px;color:var(--text-dim);margin-top:2px;line-height:1.5;}
+.act-tip{margin-top:5px;padding:5px 9px;border-radius:5px;font-size:11px;line-height:1.4;background:var(--amber-bg);border-left:2px solid var(--amber-border);color:var(--amber-text);}
+.act-links{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;}
+.lnk{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;text-decoration:none;transition:all .15s;white-space:nowrap;}
+.lnk-book{border:1px solid var(--book-border);color:var(--book-text);background:var(--book-bg);}
+.lnk-book:hover{background:var(--book-border);color:#fff;}
+.lnk-confirmed{border:1px solid var(--conf-border);color:var(--conf-text);background:var(--conf-bg);}
+.lnk-confirmed:hover{background:var(--conf-border);color:#fff;}
+.lnk-info{border:1px solid var(--info-border);color:var(--info-text);background:var(--info-bg);}
+.lnk-info:hover{background:var(--text-title);color:var(--bg);border-color:var(--text-title);}
+.lnk-map{border:1px solid var(--map-border);color:var(--map-text);background:var(--map-bg);}
+.lnk-map:hover{background:var(--map-border);color:#fff;}
+.party-b{font-size:9px;padding:2px 7px;border-radius:4px;background:var(--party-bg);border:1px solid var(--party-border);color:var(--party-text);font-weight:700;}
+.depart-b{font-size:9px;padding:2px 7px;border-radius:4px;background:var(--depart-bg);border:1px solid var(--depart-border);color:var(--depart-text);font-weight:700;}
+.booked-b{font-size:9px;padding:2px 7px;border-radius:4px;background:var(--booked-bg);border:1px solid var(--booked-border);color:var(--booked-text);font-weight:700;}
+.tips-section,.transport-section{padding:12px 14px;max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:8px;}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:background .25s,border-color .25s;}
+.card-header{padding:13px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:13px;user-select:none;color:var(--text-title);}
+.card-header:hover{background:var(--hover-bg);}
+.card-body{border-top:1px solid var(--border-light);padding:0 16px 12px;}
+.tip-row{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--border-light);font-size:12px;color:var(--text-body);line-height:1.5;}
+.tip-row:last-child{border-bottom:none;}
+.tip-dot{color:var(--text-faint);flex-shrink:0;padding-top:3px;font-size:9px;}
+.route-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:0;transition:background .25s,border-color .25s;}
+.route-section-title{font-size:10px;font-weight:700;color:var(--text-faint);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;}
+.route-row{display:flex;align-items:center;padding:7px 0;border-bottom:1px solid var(--border-light);font-size:12px;gap:6px;}
+.route-row:last-child{border-bottom:none;}
+.route-from{flex:1;color:var(--text-body);}
+.route-dur{color:var(--text-faint);font-size:11px;white-space:nowrap;min-width:55px;text-align:right;}
+.route-price{font-weight:700;color:var(--text-title);white-space:nowrap;min-width:85px;text-align:right;}
+.route-btn{font-size:10px;font-weight:600;color:var(--text-dim);border:1px solid var(--info-border);border-radius:4px;padding:2px 7px;white-space:nowrap;margin-left:6px;transition:all .15s;}
+.route-btn:hover{background:var(--text-title);color:var(--bg);border-color:var(--text-title);}
+.verdict-box{background:var(--amber-bg);border:1px solid var(--amber-box-border);border-radius:10px;padding:14px;font-size:12px;color:var(--text-body);line-height:1.7;}
+.budget-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.budget-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border-light);font-size:12px;color:var(--text-body);}
+.budget-row:last-child{border-bottom:none;font-weight:700;color:var(--text-title);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
+  <h1>🗾 JAPAN TRIP 2025</h1>
+  <div class="sub">Victor · 27 Juillet – 9 Août · 14 jours · 5 destinations</div>
+  <div class="chips">
+    <span class="chip">Départ <strong>D7532</strong> KUL → OSA 02h20 → 09h50</span>
+    <span class="chip">Retour <strong>HDN T3</strong> → CDG T2C 16h35 → 07h00 (+1)</span>
+  </div>
+</div>
+
+<div class="resa-bar">
+  <a href="https://teamlabplanets.dmm.com/en/mytickets/1494b6a465176c28c5" target="_blank" rel="noopener" class="resa-lnk"><span class="dot"></span>teamLab — 6 Août 10h30</a>
+  <a href="https://www.getyourguide.com/tokyo-l193/tokyo-fast-furious-tokyo-drift-3-experience-t794698/" target="_blank" rel="noopener" class="resa-lnk"><span class="dot"></span>JDM Tour — 2 Août 17h30</a>
+  <a href="https://ra.co/clubs/122892" target="_blank" rel="noopener" class="resa-lnk"><span class="dot"></span>VENT — 7 Août soirée</a>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('itinerary',this)">🗓 Itinéraire</button>
+  <button class="tab-btn" onclick="switchTab('tips',this)">💡 Conseils</button>
+  <button class="tab-btn" onclick="switchTab('transport',this)">🚄 Transports & Budget</button>
+</div>
+
+<div id="tab-itinerary" class="tab-content active">
+  <div class="city-filter" id="cityFilter">
+    <button class="cf-btn" style="border:1px solid var(--text-title);background:var(--text-title);color:var(--bg)" onclick="filterCity('all',this)">Tous les jours</button>
+    <button class="cf-btn" style="border:1px solid #E8540F;color:#E8540F" data-city="osaka" onclick="filterCity('osaka',this)">🍡 Osaka</button>
+    <button class="cf-btn" style="border:1px solid #C0392B;color:#C0392B" data-city="kyoto" onclick="filterCity('kyoto',this)">⛩️ Kyoto</button>
+    <button class="cf-btn" style="border:1px solid #27AE60;color:#27AE60" data-city="nara" onclick="filterCity('nara',this)">🦌 Nara</button>
+    <button class="cf-btn" style="border:1px solid #2980B9;color:#2980B9" data-city="kamakura" onclick="filterCity('kamakura',this)">🌊 Kamakura</button>
+    <button class="cf-btn" style="border:1px solid #7B4F9E;color:#7B4F9E" data-city="tokyo" onclick="filterCity('tokyo',this)">🏙️ Tokyo</button>
+  </div>
+  <div class="days-list" id="daysList"></div>
+</div>
+
+<div id="tab-tips" class="tab-content">
+  <div class="tips-section" id="tipsGrid"></div>
+</div>
+
+<div id="tab-transport" class="tab-content">
+  <div class="transport-section" id="transportSection"></div>
+</div>
+
+<script>
+const CITY={
+  osaka:    {n:"Osaka",    e:"🍡",c:"#E8540F"},
+  kyoto:    {n:"Kyoto",    e:"⛩️",c:"#C0392B"},
+  nara:     {n:"Nara",     e:"🦌",c:"#27AE60"},
+  kamakura: {n:"Kamakura", e:"🌊",c:"#2980B9"},
+  tokyo:    {n:"Tokyo",    e:"🏙️",c:"#7B4F9E"},
+};
+
+function bk(url,label){return`<a href="${url}" target="_blank" rel="noopener" class="lnk lnk-book">🎫 ${label}</a>`;}
+function conf(url,label){return`<a href="${url}" target="_blank" rel="noopener" class="lnk lnk-confirmed">✅ ${label}</a>`;}
+function info(url,label){return`<a href="${url}" target="_blank" rel="noopener" class="lnk lnk-info">↗ ${label}</a>`;}
+function gmap(q){return`<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}" target="_blank" rel="noopener" class="lnk lnk-map">📍 Maps</a>`;}
+
+const DAYS=[
+/* ─── JOUR 1 ─── */
+{n:1,d:"Lun 27 Juil",city:"osaka",title:"Arrivée à Osaka ✈️",special:null,
+hl:["Dotonbori","Shinsekai","Kushikatsu"],acts:[
+{t:"09:50",e:"✈️",a:"Atterrissage KIX",s:"Kansai International Airport",tip:"Prévoir 1h30 pour l'immigration en haute saison — file souvent longue",
+links:[info("https://www.kansai-airport.or.jp/en/","KIX Official"),gmap("Kansai International Airport")]},
+{t:"11:30",e:"🚄",a:"Haruka Express → Osaka Namba",s:"~45 min · ¥1 830 avec ICOCA",tip:"Acheter l'ICOCA dès les machines à l'aéroport (¥2 000 dont ¥500 caution remboursable)",
+links:[info("https://www.westjr.co.jp/global/en/travel/shopping/access/train/","Haruka Express"),gmap("Namba Station Osaka")]},
+{t:"12:30",e:"🏨",a:"Dépose bagages — Hotel Forza Osaka Kitahama",s:"2-2-21 Imabashi, Chuo-ku, Osaka · Check-in officiel 14h, dépose bagages OK avant",tip:"Depuis Namba, compter ~15 min en métro (Midosuji Line) jusqu'à Yodoyabashi/Kitahama",
+links:[gmap("Hotel Forza Osaka Kitahama, 2-2-21 Imabashi, Chuo-ku, Osaka")]},
+{t:"14:00",e:"🍡",a:"Dotonbori & Namba",s:"Glico Man, canal, Hozenji Yokocho, street food",
+links:[info("https://dotonbori.or.jp/en/","Dotonbori"),gmap("Dotonbori Osaka")]},
+{t:"17:00",e:"🗼",a:"Shinsekai",s:"Tour Tsutenkaku ¥800 · Vieux Osaka ultra authentique",tip:"Ambiance rétro unique — y aller avant la foule du soir",
+links:[info("https://www.tsutenkaku.co.jp/en/","Tsutenkaku"),gmap("Tsutenkaku Tower Shinsekai Osaka")]},
+{t:"19:30",e:"🍢",a:"Dîner Kushikatsu",s:"Daruma Honten — RÈGLE D'OR : jamais re-tremper la brochette dans la sauce !",
+links:[info("https://www.kushikatsu-daruma.com/","Daruma Honten"),gmap("Daruma Honten Dotonbori Osaka")]},
+{t:"21:30",e:"🍺",a:"Namba / Amerika-Mura",s:"Bar hopping · Quartier jeune, festif",
+links:[gmap("Amerikamura Osaka")]},
+]},
+/* ─── JOUR 2 ─── */
+{n:2,d:"Mar 28 Juil",city:"osaka",title:"Osaka Matin + Départ Kyoto 🚅",special:null,
+hl:["Osaka Castle","Kuromon Market","Kyoto 17h"],acts:[
+{t:"10:00",e:"🏨",a:"Check-out Hotel Forza Osaka Kitahama",s:"Check-out 11h · Consigne bagages à l'hôtel ou à la gare si besoin",
+links:[gmap("Hotel Forza Osaka Kitahama, 2-2-21 Imabashi, Chuo-ku, Osaka")]},
+{t:"10:30",e:"🏯",a:"Osaka Castle + Parc",s:"¥600 entrée · Nishinomaru Garden ¥350 · ~15 min à pied de l'hôtel",tip:"Les jardins de Nishinomaru offrent la meilleure vue sur le château",
+links:[info("https://www.osakacastle.net/english/","Site officiel"),gmap("Osaka Castle")]},
+{t:"12:30",e:"🐟",a:"Kuromon Ichiba Market",s:"Déjeuner sur le pouce · Marché couvert, fruits de mer ultra frais",
+links:[info("https://kuromon.com/en/","Site officiel"),gmap("Kuromon Ichiba Market Osaka")]},
+{t:"14:30",e:"🛍️",a:"Shinsaibashi & Dotonbori de jour",s:"Dernier tour shopping avant le départ pour Kyoto",
+links:[gmap("Shinsaibashi Osaka")]},
+{t:"16:00",e:"🚉",a:"Récupération bagages → Gare",s:"Direction Shin-Osaka ou Osaka Station"},
+{t:"17:00",e:"🚂",a:"Train Osaka → Kyoto",s:"JR Rapid ~45-75 min · ¥570 | Shinkansen 15 min · ¥2 900",
+links:[info("https://www.westjr.co.jp/","JR West")]},
+{t:"18:15",e:"🏨",a:"Check-in Hop Inn Kyoto Shijo Omiya",s:"14-2 Mibubojocho, Nakagyo Ward · Check-in dès 15h",
+links:[gmap("Hop Inn Kyoto Shijo Omiya, 14-2 Mibubojocho, Nakagyo Ward, Kyoto")]},
+{t:"19:30",e:"🍜",a:"Dîner de bienvenue à Kyoto",s:"Restaurant proche Shijo Omiya · Ambiance décontractée pour la première soirée"},
+]},
+/* ─── JOUR 3 ─── */
+{n:3,d:"Mer 29 Juil",city:"kyoto",title:"Kyoto Jour 1 ⛩️",special:null,
+hl:["Fushimi Inari","Gion","Pontocho"],acts:[
+{t:"10:00",e:"⛩️",a:"Fushimi Inari Taisha",s:"Libre 24h/24 · 2 000 torii oranges enfilés sur la montagne",tip:"Monter jusqu'au Yotsutsuji (~30 min depuis l'entrée) pour la vue panoramique. Matinée = nettement moins de monde",
+links:[info("https://inari.jp/en/","Site officiel"),gmap("Fushimi Inari Taisha Kyoto")]},
+{t:"13:00",e:"🍜",a:"Déjeuner près de Fushimi Inari",s:"Petits restaurants locaux autour de la gare Inari"},
+{t:"15:00",e:"☕",a:"Temps libre / retour à l'hôtel",s:"Pause avant la soirée — repos ou balade tranquille à Shijo Omiya"},
+{t:"18:00",e:"🏮",a:"Gion — Hanamikoji Street",s:"Quartier des geisha · Maisons okiya, atmosphère unique",tip:"18h-21h = meilleure fenêtre pour croiser des Maiko/Geisha en route pour leurs rendez-vous",
+links:[gmap("Hanamikoji Street Gion Kyoto")]},
+{t:"20:00",e:"🍽️",a:"Dîner Pontocho Alley",s:"Ruelle couverte en bord de rivière Kamo · Restaurants tous prix",
+links:[gmap("Pontocho Alley Kyoto")]},
+{t:"22:00",e:"🍸",a:"Bars Kiyamachi",s:"Rue parallèle très animée",
+links:[gmap("Kiyamachi Street Kyoto")]},
+]},
+/* ─── JOUR 4 ─── */
+{n:4,d:"Jeu 30 Juil",city:"nara",title:"Nara + Arashiyama 🦌",special:null,
+hl:["Cerfs libres","Todai-ji","Bambouseraie"],acts:[
+{t:"10:00",e:"🚆",a:"Kintetsu Kyoto → Nara",s:"35 min · ¥1 160",tip:"Plus rapide et direct que le JR pour Nara",
+links:[info("https://www.kintetsu.co.jp/foreign/english/","Kintetsu")]},
+{t:"10:45",e:"🦌",a:"Nara Park — Cerfs en liberté",s:"Acheter des shika-senbei ¥200 pour les nourrir !",tip:"Les cerfs s'inclinent réellement pour demander à manger 🙏 — classique de Nara",
+links:[gmap("Nara Park")]},
+{t:"11:30",e:"🏛️",a:"Todai-ji",s:"¥600 · Plus grand bâtiment en bois du monde · Grand Bouddha 15m",
+links:[info("https://www.todaiji.or.jp/english/","Site officiel"),gmap("Todai-ji Temple Nara")]},
+{t:"13:00",e:"🥣",a:"Déjeuner Naramachi",s:"Quartier historique · Restaurants et cafés charmants",
+links:[gmap("Naramachi Nara")]},
+{t:"14:30",e:"🏮",a:"Kasuga Taisha",s:"¥500 · Sanctuaire aux 3 000 lanternes de bronze et de pierre",
+links:[info("https://www.kasugataisha.or.jp/en/","Site officiel"),gmap("Kasuga Taisha Nara")]},
+{t:"16:00",e:"🚆",a:"Retour Nara → Kyoto",s:"Kintetsu 35 min"},
+{t:"16:45",e:"🎋",a:"Arashiyama — Bambouseraie",s:"GRATUITE · Accessible 24h · Lumière dorée de fin de journée",tip:"La forêt de bambous est gratuite et accessible à toute heure. Tenryu-ji ¥1 000 pour le jardin zen",
+links:[info("https://www.tenryuji.com/en/","Tenryu-ji"),gmap("Arashiyama Bamboo Grove Kyoto")]},
+{t:"18:30",e:"🌅",a:"Togetsukyo Bridge",s:"Vue panoramique sur la montagne Arashiyama",
+links:[gmap("Togetsukyo Bridge Arashiyama Kyoto")]},
+{t:"20:00",e:"🍶",a:"Dîner izakaya — Kyoto centre",s:""},
+]},
+/* ─── JOUR 5 ─── */
+{n:5,d:"Ven 31 Juil",city:"kyoto",title:"Kyoto Jour 2 — Zen & Panoramas 🪨",special:null,
+hl:["Kinkaku-ji","Ryoan-ji","Philosopher's Path"],acts:[
+{t:"10:00",e:"🏯",a:"Kinkaku-ji (Pavillon d'Or)",s:"¥500 · Ferme 17h — y aller le matin impératif",tip:"Incontournable malgré l'affluence — 45 min suffisent. Le reflet dans l'étang vaut tout",
+links:[info("https://www.shokoku-ji.jp/kinkakuji/","Site officiel"),gmap("Kinkaku-ji Golden Pavilion Kyoto")]},
+{t:"11:30",e:"🪨",a:"Ryoan-ji",s:"¥600 · Le jardin de pierres zen le plus célèbre au monde · 15 pierres mystérieuses",tip:"Contemplatif et silencieux — prévoir 30-45 min assis devant le jardin",
+links:[info("https://www.ryoanji.jp/smph/eng/","Site officiel"),gmap("Ryoan-ji Temple Kyoto")]},
+{t:"13:00",e:"🍜",a:"Déjeuner — Tofu ryori",s:"Cuisine végétarienne bouddhiste · Idéale dans le quartier de Ryoan-ji"},
+{t:"14:30",e:"🛒",a:"Nishiki Market",s:"La cuisine de Kyoto · Street food, pickles, matcha · Ferme ~18h",tip:"100 mètres de stands couverts : tamago-yaki chaud, dango, dashi — une expérience gastronomique en soi",
+links:[info("https://www.kyoto-nishiki.or.jp/english/index.html","Site officiel"),gmap("Nishiki Market Kyoto")]},
+{t:"16:00",e:"🌸",a:"Philosopher's Path",s:"2 km le long du canal · Chemin piéton entre Nanzen-ji et Ginkaku-ji",tip:"Promenade contemplative — prendre l'heure dorée pour les photos",
+links:[gmap("Philosopher's Path Kyoto")]},
+{t:"17:30",e:"⛩️",a:"Nanzen-ji",s:"Gratuit (jardins) · ¥600 pour le Hojo garden · Aqueduc en brique inattendu",
+links:[info("https://nanzenji.or.jp/english/","Site officiel"),gmap("Nanzen-ji Temple Kyoto")]},
+{t:"20:00",e:"🍽️",a:"Dîner d'adieu Kyoto",s:"Gion ou Pontocho · Dernière soirée dans l'ancienne capitale"},
+]},
+/* ─── JOUR 6 ─── */
+{n:6,d:"Sam 01 Août",city:"kyoto",title:"Kyoto → Tokyo 🚅",special:null,
+hl:["Nijo Castle","Shinkansen","Check-in Akasaka"],acts:[
+{t:"09:00",e:"🏯",a:"Nijo Castle",s:"¥1 300 · Parquet nightingale · Jardins Ninomaru · Ouvre 8h45",tip:"Commencer tôt pour être de retour à temps pour le check-out à 11h. Le parquet « chante » pour prévenir des intrus",
+links:[info("https://nijo-jocastlekyoto.com/","Site officiel"),gmap("Nijo Castle Kyoto")]},
+{t:"11:00",e:"🏨",a:"Check-out Hop Inn Kyoto Shijo Omiya",s:"Check-out 11h précises",
+links:[gmap("Hop Inn Kyoto Shijo Omiya, 14-2 Mibubojocho, Nakagyo Ward, Kyoto")]},
+{t:"12:00",e:"🍱",a:"Dernier déjeuner Kyoto",s:"Lunch set dans un restaurant traditionnel"},
+{t:"14:00",e:"🚅",a:"Shinkansen Kyoto → Tokyo",s:"Nozomi 2h10 · ¥14 170 | Hikari 2h40 · ¥13 720",tip:"🗻 SIÈGE CÔTÉ D (fenêtre gauche, direction Tokyo) pour voir le Mont Fuji ~45 min après le départ !",
+links:[bk("https://smart-ex.jp/en/","Réserver Smart EX")]},
+{t:"16:30",e:"🏙️",a:"Arrivée Tokyo",s:"Direction Akasaka en métro (Ginza Line ou Chiyoda Line, ~20 min depuis Tokyo Station)",
+links:[gmap("Tokyo Station")]},
+{t:"17:00",e:"🏨",a:"Check-in Akasaka Guesthouse HIVE",s:"Check-in 16h-21h · Minato-ku, Akasaka 2-7-2",
+links:[conf("https://www.booking.com/","Booking.com — Réservation"),gmap("Akasaka RS Building, 2-7-2 Akasaka, Minato-ku, Tokyo")]},
+{t:"19:00",e:"🚦",a:"Shibuya Crossing",s:"Gratuit · Spectaculaire de nuit · ~20 min depuis Akasaka",tip:"Starbucks au-dessus du carrefour pour la photo plongeante, ou Mag's Park (rooftop gratuit)",
+links:[gmap("Shibuya Crossing Tokyo")]},
+{t:"20:30",e:"🍜",a:"Dîner Ichiran Ramen",s:"Cabines individuelles façon bureau · Expérience unique",
+links:[gmap("Ichiran Ramen Shibuya")]},
+]},
+/* ─── JOUR 7 — JDM TOUR ─── */
+{n:7,d:"Dim 02 Août",city:"tokyo",title:"Tokyo Est + JDM Night Drive 🏎️",special:"booked",
+hl:["Asakusa","Akihabara","JDM Tour 17h30"],acts:[
+{t:"10:00",e:"🏮",a:"Asakusa — Senso-ji",s:"Temple bouddhiste principal de Tokyo · Libre",tip:"Nakamise Shopping Street pour les souvenirs artisanaux — plus qualitatif que la plupart des shops touristiques",
+links:[info("https://www.senso-ji.jp/english/","Site officiel"),gmap("Senso-ji Temple Asakusa Tokyo")]},
+{t:"12:00",e:"🗼",a:"Tokyo Skytree",s:"¥3 100 main deck (350m) · OU admirer de la base (gratuit)",tip:"Réserver en ligne pour éviter la file — jusqu'à 2h d'attente en été",
+links:[bk("https://www.tokyo-skytree.jp/en/ticket/","Réserver tickets"),gmap("Tokyo Skytree")]},
+{t:"13:00",e:"🍱",a:"Déjeuner Asakusa",s:"Conveyor belt sushi ou ramen"},
+{t:"14:30",e:"🎮",a:"Akihabara",s:"Électronique, anime, gaming · Yodobashi, Kotobukiya, Mandarake",tip:"Garde du temps — départ vers Shibuya à 16h impératif pour le JDM tour",
+links:[gmap("Akihabara Tokyo")]},
+{t:"16:00",e:"🚇",a:"Direction Shibuya",s:"~30 min en métro/JR (1 changement) · Marge de sécurité avant 17h30"},
+{t:"17:30",e:"🏎️",a:"JDM Night Drive — Fast & Furious Tokyo Drift III",s:"4h · Meeting point Shibuya · Wangan/C1, Rainbow Bridge, Daikoku PA, Tokyo Tower",tip:"✅ Réservé — Nissan Skyline GT-R / Lancer Evo. Drop-off possible à Akasaka ou Shibuya en fin de course",
+links:[conf("https://www.getyourguide.com/tokyo-l193/tokyo-fast-furious-tokyo-drift-3-experience-t794698/","Voir la réservation"),gmap("Shibuya Station Tokyo")]},
+{t:"21:30",e:"🍽️",a:"Dîner tardif — Shibuya / Akasaka",s:"Selon le point de dépose · Izakaya ouvert tard"},
+]},
+/* ─── JOUR 8 ─── */
+{n:8,d:"Lun 03 Août",city:"kamakura",title:"Kamakura Day Trip 🌊",special:null,
+hl:["Grand Bouddha","Hase-dera","Plage été"],acts:[
+{t:"09:30",e:"🚂",a:"JR Yokosuka Line → Kamakura",s:"~1h · ¥940",tip:"Ou Shonan-Shinjuku Line depuis Shinjuku (55 min, direct) — depuis Akasaka, rejoindre Shinagawa ou Tokyo Station",
+links:[info("https://www.jreast.co.jp/e/","JR East")]},
+{t:"10:30",e:"🗿",a:"Kotoku-in — Grand Bouddha",s:"¥300 · 11m de bronze · Ouvre 8h30",
+links:[info("https://www.kotoku-in.jp/en/","Site officiel"),gmap("Kotoku-in Great Buddha Kamakura")]},
+{t:"11:30",e:"⛩️",a:"Hase-dera Temple",s:"¥400 · Vue mer panoramique · Jardin zen",tip:"L'un des plus beaux temples de la région Kanto — ne pas louper la grotte des statues de Kannon",
+links:[info("https://www.hasedera.jp/en/","Site officiel"),gmap("Hase-dera Temple Kamakura")]},
+{t:"13:00",e:"🐟",a:"Déjeuner Komachi-dori",s:"Rue piétonne · Spécialité : shirasu-don (anchois blancs)",
+links:[gmap("Komachi-dori Kamakura")]},
+{t:"14:30",e:"🏯",a:"Tsurugaoka Hachimangu",s:"Sanctuaire principal de Kamakura · Gratuit",
+links:[info("https://www.tsurugaoka-hachimangu.jp/","Site officiel"),gmap("Tsurugaoka Hachimangu Kamakura")]},
+{t:"16:00",e:"🏖️",a:"Plage Yuigahama",s:"Août = baignade officielle · Eau ~25°C · Louer parasol ¥1 500",tip:"Ambiance été japonaise unique — crèmes glacées, surfeurs, familles",
+links:[gmap("Yuigahama Beach Kamakura")]},
+{t:"18:30",e:"🚂",a:"Retour Tokyo JR",s:"~1h · ¥940"},
+{t:"20:00",e:"🍻",a:"Omoide Yokocho — Shinjuku",s:"Ruelle de yakitori grillés sous les voies · Ultra authentique",
+links:[gmap("Omoide Yokocho Shinjuku Tokyo")]},
+]},
+/* ─── JOUR 9 ─── */
+{n:9,d:"Mar 04 Août",city:"tokyo",title:"Tokyo Ouest — Pop Culture & Streetwear 🎌",special:null,
+hl:["Chrome Hearts","Liberty Walk","Shibuya Sky"],acts:[
+{t:"10:00",e:"🌲",a:"Meiji Jingu",s:"Sanctuaire shinto · Forêt urbaine · Gratuit",tip:"Calme et verdoyant au cœur de Tokyo — contraste saisissant avec la ville autour",
+links:[info("https://www.meijijingu.or.jp/en/","Site officiel"),gmap("Meiji Jingu Tokyo")]},
+{t:"11:30",e:"🛍️",a:"Harajuku — Takeshita Street",s:"Streetwear, crepes, Laforet, mode décalée",
+links:[gmap("Takeshita Street Harajuku Tokyo")]},
+{t:"12:15",e:"🚙",a:"Liberty Walk Tokyo — Harajuku Store",s:"4-26-3 Jingumae, Shibuya-ku · Boutique JDM streetwear, mini F40 pour la photo, merch exclusif Japon",tip:"À 2 min à pied de Takeshita Street — compact mais dense en pièces exclusives",
+links:[info("https://libertywalk.co.jp/tokyo/","Site officiel"),gmap("Liberty Walk Tokyo Harajuku Store, 4-26-3 Jingumae, Shibuya-ku, Tokyo")]},
+{t:"13:00",e:"☕",a:"Déjeuner Omotesando",s:"Cafés design, restaurants lunch abordables",
+links:[gmap("Omotesando Tokyo")]},
+{t:"14:00",e:"⛓️",a:"Chrome Hearts — Aoyama Flagship",s:"6-3-14 Minami-Aoyama, Minato-ku · Entrée par un terrain de basket indoor",tip:"Expérience quasi muséale (pas de photos à l'intérieur) — vaut le détour même sans acheter",
+links:[info("https://www.chromehearts.com/locations.html","Site officiel"),gmap("Chrome Hearts Aoyama, 6-3-14 Minami-Aoyama, Minato-ku, Tokyo")]},
+{t:"15:00",e:"🏙️",a:"Shibuya",s:"Shibuya 109, Center Street, shopping, culture",
+links:[gmap("Shibuya Center Gai Tokyo")]},
+{t:"17:00",e:"👁️",a:"Shibuya Sky — Scramble Square",s:"¥2 000 · Rooftop 230m · Meilleure vue sur le carrefour",tip:"⭐ Réserver en ligne pour le créneau coucher de soleil ~19h — golden hour absolument incroyable",
+links:[bk("https://www.shibuya-scramble-square.com/sky/en/","Réserver Shibuya Sky"),gmap("Shibuya Sky Scramble Square Tokyo")]},
+{t:"20:00",e:"🍽️",a:"Dîner Shibuya",s:"Large choix tous budgets"},
+{t:"21:30",e:"🏮",a:"Nakameguro Canal Walk",s:"Ambiance trendy, petits bars, lumières",
+links:[gmap("Nakameguro Tokyo")]},
+]},
+/* ─── JOUR 10 ─── */
+{n:10,d:"Mer 05 Août",city:"tokyo",title:"Tokyo Centre & Impérial 👑",special:null,
+hl:["Ginza","Imperial Palace","Yurakucho"],acts:[
+{t:"10:30",e:"🐟",a:"Tsukiji — Petit-déj sushi",s:"Sushi ultra frais dès le matin",
+links:[gmap("Tsukiji Outer Market Tokyo")]},
+{t:"12:00",e:"💎",a:"Ginza",s:"Luxe, galeries d'art gratuites, Itoya Stationery (12 étages !)",
+links:[info("https://www.ito-ya.co.jp/en/","Itoya Stationery"),gmap("Ginza Tokyo")]},
+{t:"13:30",e:"🍽️",a:"Set Lunch Ginza",s:"Rapport qualité-prix excellent le midi",tip:"Le set lunch est souvent 3x moins cher que le soir pour le même restaurant"},
+{t:"15:00",e:"🌸",a:"Imperial Palace East Gardens",s:"Gratuit · Ouvert mar-dim",
+links:[info("https://www.kunaicho.go.jp/e-event/higashigyoen01.html","Jardins Est"),gmap("Imperial Palace East Gardens Tokyo")]},
+{t:"16:30",e:"🏛️",a:"KITTE Marunouchi",s:"Rooftop gratuit avec vue plongeante sur Tokyo Station",
+links:[gmap("KITTE Marunouchi Tokyo")]},
+{t:"18:30",e:"🚂",a:"Yurakucho Yakitori Alley",s:"Izakaya sous les voies du Shinkansen · Ultra authentique",tip:"Tables sous les arches de béton, brochettes grillées, sake. L'un des meilleurs spots de Tokyo",
+links:[gmap("Yurakucho Yakitori Alley Tokyo")]},
+{t:"21:00",e:"🍺",a:"Marunouchi / Hibiya",s:"Bars élégants, soirée tranquille",
+links:[gmap("Hibiya Tokyo")]},
+]},
+/* ─── JOUR 11 — TEAMLAB ─── */
+{n:11,d:"Jeu 06 Août",city:"tokyo",title:"Tokyo Futuriste 🌌",special:"booked",
+hl:["teamLab 10h30","Tsukiji","Odaiba"],acts:[
+{t:"10:30",e:"🎨",a:"teamLab Planets (Toyosu)",s:"Créneau 10h30-11h · Art digital immersif · 45-60 min de visite",tip:"✅ Réservé — arrive 15 min avant ton créneau. Une des meilleures expériences du Japon",
+links:[conf("https://teamlabplanets.dmm.com/en/mytickets/1494b6a465176c28c5","Voir mon billet"),gmap("teamLab Planets Toyosu Tokyo")]},
+{t:"13:00",e:"🐟",a:"Tsukiji Outer Market",s:"Sushi ultra frais, tamagoyaki, brochettes fruits de mer",tip:"Le marché intérieur est à Toyosu. Les étals extérieurs et restaurants sont toujours ouverts !",
+links:[gmap("Tsukiji Outer Market Tokyo")]},
+{t:"15:00",e:"🤖",a:"Odaiba",s:"Île artificielle · Gundam Unicorn (gratuit), DiverCity, vue sur la baie",
+links:[gmap("Odaiba Tokyo")]},
+{t:"17:30",e:"🌅",a:"Coucher de soleil — Tokyo Bay",s:"Vue Rainbow Bridge + Fuji par beau temps",
+links:[gmap("Rainbow Bridge Tokyo")]},
+{t:"19:00",e:"🖼️",a:"Mori Art Museum — Roppongi Hills",s:"¥2 000 · Ouvert jusqu'à 22h · Vue 52e étage",
+links:[info("https://www.mori.art.museum/en/","Site officiel"),bk("https://ticket.mori.art.museum/","Réserver"),gmap("Mori Art Museum Roppongi Hills Tokyo")]},
+{t:"21:30",e:"🍸",a:"Roppongi — soirée tranquille",s:"Repos avant la grosse soirée du lendemain",
+links:[gmap("Roppongi Tokyo")]},
+]},
+/* ─── JOUR 12 — VENT ─── */
+{n:12,d:"Ven 07 Août",city:"tokyo",title:"Shinjuku & Soirée VENT 🎉",special:"party",
+hl:["Shinjuku Gyoen","Golden Gai","VENT Techno"],acts:[
+{t:"10:30",e:"🏙️",a:"Tokyo Metropolitan Govt Building",s:"GRATUIT · Vue panoramique 202m · Meilleure vue gratuite de Tokyo",
+links:[info("https://www.yokoso.metro.tokyo.lg.jp/en/tenbou/index.html","Site officiel"),gmap("Tokyo Metropolitan Government Building")]},
+{t:"12:00",e:"🌳",a:"Shinjuku Gyoen",s:"¥500 · Grand parc national · 3 styles de jardins",tip:"Parfait pour se reposer avant la grande soirée",
+links:[info("https://www.env.go.jp/garden/shinjukugyoen/english/","Site officiel"),gmap("Shinjuku Gyoen Tokyo")]},
+{t:"14:00",e:"🦖",a:"Kabukicho",s:"Godzilla Head sur Toho Building (photo !), arcades Taito",
+links:[gmap("Kabukicho Tokyo")]},
+{t:"16:00",e:"🛒",a:"Don Quijote Shinjuku",s:"Shopping bizarre et fun · Souvenirs, cosmétiques · Ouvert 24h",
+links:[gmap("Don Quijote Shinjuku Tokyo")]},
+{t:"18:30",e:"🥩",a:"Dîner Yakiniku",s:"Barbecue japonais à table · Shinjuku"},
+{t:"20:30",e:"🍶",a:"Golden Gai",s:"200+ mini-bars thématiques · 6 ruelles · 6-10 personnes max par bar",tip:"Cover charge ¥500-1 000 dans certains bars — toujours demander avant d'entrer",
+links:[gmap("Golden Gai Shinjuku Tokyo")]},
+{t:"22:30",e:"🚇",a:"Direction Omotesando / Minami-Aoyama",s:"~15-20 min en métro depuis Shinjuku"},
+{t:"23:00",e:"🎧",a:"VENT Tokyo — Soirée Techno",s:"Answer Code Request, Jun, Iron, Waka Xinxi, Liarako, Kulage/B, Yai, Remi Ohsugi",tip:"✅ Trouvé — 3-18-19 Minami Aoyama, Minato-ku, à côté de la station Omotesando. Dernier métro autour de minuit — prévoir un taxi retour vers Akasaka (~15-20 min, ¥1 500-2 500)",
+links:[conf("https://ra.co/clubs/122892","Page VENT — RA"),gmap("VENT Tokyo, 3-18-19 Minami Aoyama, Minato-ku")]},
+]},
+/* ─── JOUR 13 ─── */
+{n:13,d:"Sam 08 Août",city:"tokyo",title:"Recovery & Derniers Instants 🌸",special:null,
+hl:["Shimokitazawa","Yanaka","Dîner final"],acts:[
+{t:"12:00",e:"☕",a:"Réveil tardif mérité — Brunch",s:"Kissaten (café vintage japonais) · Croque + latte"},
+{t:"14:00",e:"🎸",a:"Shimokitazawa",s:"Quartier bohème · Vinyle, friperies, live music, cafés indie",tip:"Disk Union pour les amateurs de vinyle 👀 — collection incroyable sur plusieurs niveaux",
+links:[info("https://diskunion.net/shop/ct/shimokitazawa/","Disk Union Shimokitazawa"),gmap("Shimokitazawa Tokyo")]},
+{t:"16:30",e:"🏘️",a:"Yanaka",s:"Vieux Tokyo survivant · Cimetière promenade, artisans, charme local",
+links:[gmap("Yanaka Tokyo")]},
+{t:"19:00",e:"🍱",a:"Dîner final — Kaiseki ou Sushi Omakase",s:"Expérience gastronomique mémorable · Réserver sur Tableall ou Ikyu",tip:"Budget ¥8 000-20 000/pers · Le meilleur repas du voyage — bien le mériter après 14 jours",
+links:[bk("https://www.tableall.com/en/","Tableall"),bk("https://restaurant.ikyu.com/?lang=en","Ikyu")]},
+]},
+/* ─── JOUR 14 ─── */
+{n:14,d:"Dim 09 Août",city:"tokyo",title:"Départ vers Paris ✈️",special:"depart",
+hl:["Haneda T3","CDG T2C","Sayonara 🗾"],acts:[
+{t:"09:30",e:"🌅",a:"Matin libre — Brunch Kombini",s:"Onigiri + café Wanda · Dernière expérience japonaise"},
+{t:"11:00",e:"🧳",a:"Check-out Akasaka Guesthouse HIVE",s:"Check-out 11h précises · Acheter snacks pour le vol en combini",
+links:[gmap("Akasaka RS Building, 2-7-2 Akasaka, Minato-ku, Tokyo")]},
+{t:"13:00",e:"🚇",a:"Direction Haneda Airport T3",s:"Depuis Akasaka : ~30-35 min (Namboku/Asakusa Line + Keikyu, ou taxi ~40 min)",tip:"T3 = Terminal International uniquement",
+links:[info("https://www.haneda-access.com/en/","Info accès Haneda"),gmap("Haneda Airport Terminal 3")]},
+{t:"14:30",e:"🛂",a:"Enregistrement & sécurité",s:"Prévoir 2h minimum avant départ international"},
+{t:"16:35",e:"✈️",a:"DÉCOLLAGE Tokyo HDN → Paris CDG",s:"Haneda T3 → Paris CDG T2C"},
+{t:"07:00",e:"🇫🇷",a:"Arrivée Paris CDG Terminal 2C",s:"Lun. 10 Août · Sayonara Japan 🗾 · Bonjour les croissants 🥐",
+links:[gmap("Paris Charles de Gaulle Terminal 2C")]},
+]},
+];
+
+const TIPS=[
+{cat:"💴 Argent & Paiement",items:[
+"Japan est encore très cash. Retirer aux ATM 7-Eleven ou Japan Post — les seuls qui acceptent systématiquement les cartes étrangères Visa/Mastercard",
+"Garder 20 000-30 000 ¥ en cash sur soi en permanence — beaucoup de restaurants et temples n'acceptent pas les cartes",
+"Carte ICOCA : acheter à KIX dès l'arrivée (¥2 000 dont ¥500 de caution). Fonctionne dans tous les transports ET les combini",
+"Ne JAMAIS laisser de pourboire — considéré comme impoli. L'excellent service est inclus au Japon",
+]},
+{cat:"📶 Connectivité",items:[
+"eSIM recommandée : Airalo, Ubigi ou IIJmio — acheter et installer avant le départ de France",
+"Google Maps fonctionne parfaitement pour les transports japonais — télécharger les cartes hors ligne",
+"Google Translate mode caméra = indispensable pour les menus en japonais",
+]},
+{cat:"🌡️ Météo Juillet-Août",items:[
+"35°C+ avec forte humidité — ressenti jusqu'à 42°C. Pire période thermiquement mais la plus vivante",
+"Emporter : ventilateur portable pliant, sunscreen SPF 50+, vêtements légers respirants",
+"Éviter les activités outdoor 12h-15h — musées et centres commerciaux climatisés pour les pauses",
+"Vending machines à chaque coin de rue (~¥150-200) — s'hydrater en permanence",
+]},
+{cat:"🎌 Culture & Étiquette",items:[
+"Silence dans les transports : pas d'appels téléphoniques, voix basse, pas de nourriture (exception : Shinkansen)",
+"Enlever les chaussures à l'entrée des temples et de certains restaurants — prévoir des chaussettes propres",
+"Se laver les mains au temizuya avant d'entrer dans un sanctuaire shinto",
+"Pas de poubelles publiques — garder un petit sac plastique sur soi pour ses déchets",
+"Tatouages interdits dans certains onsen/sento — vérifier les règles avant d'entrer",
+]},
+{cat:"🍜 Food & Kombini",items:[
+"Kombini (7-Eleven, FamilyMart, Lawson) = qualité incroyable, pas chers, ouverts 24h/24 partout",
+"Set lunch = meilleur rapport qualité-prix pour découvrir la gastronomie japonaise haut de gamme",
+"Osaka : takoyaki, okonomiyaki, kushikatsu · Kyoto : kaiseki, yudofu · Tokyo : sushi, ramen, tout",
+"File d'attente devant un restaurant = signe de qualité. Les Japonais attendent facilement 1h pour un bon ramen",
+]},
+{cat:"📦 Bagages & Pratique",items:[
+"Coin locker dans toutes les grandes gares (¥300-800/jour) — voyager léger entre les villes !",
+"Takkyubin (Yamato Transport) : envoyer sa valise d'hôtel en hôtel pour ¥1 500-2 000. Très pratique !",
+"Tax free shopping (8% off) avec passeport dans de nombreuses boutiques — penser à le demander",
+"Matsumoto Kiyoshi (pharmacie/cosmétiques) : paradis des cosmétiques japonais à prix imbattables",
+]},
+{cat:"🌙 Sorties nocturnes",items:[
+"Dernier métro à Tokyo : généralement entre minuit et 00h30 selon la ligne — vérifier l'horaire exact sur Google Maps avant de sortir",
+"Après le dernier métro, seul le taxi fonctionne — Uber/Go app dispo, compter ¥1 500-3 000 pour une course courte (Aoyama-Akasaka, Shibuya-Akasaka)",
+"Les clubs techno tournent souvent jusqu'à l'aube (5h-6h) — les premiers métros reprennent vers 5h",
+"Dress code : éviter tongs/shorts dans les clubs premium, la plupart tolèrent un style streetwear/casual chic",
+]},
+];
+
+const ROUTES=[
+{title:"AÉROPORT → VILLES",rows:[
+{f:"KIX → Osaka Namba",d:"45 min",p:"¥1 830 ICOCA",url:"https://www.westjr.co.jp/global/en/travel/shopping/access/train/"},
+{f:"KIX → Kyoto (Haruka direct)",d:"75 min",p:"¥3 060",url:"https://www.westjr.co.jp/global/en/travel/shopping/access/train/"},
+{f:"Akasaka → Haneda T3",d:"30-35 min",p:"¥600-700",url:"https://www.haneda-access.com/en/"},
+]},
+{title:"GRANDES LIGNES",rows:[
+{f:"Osaka → Kyoto",d:"45-75 min",p:"¥570 JR Rapid",url:"https://www.westjr.co.jp/"},
+{f:"Kyoto → Nara",d:"35 min",p:"¥1 160 Kintetsu",url:"https://www.kintetsu.co.jp/foreign/english/"},
+{f:"Kyoto → Tokyo (Hikari)",d:"2h40",p:"¥13 720",url:"https://smart-ex.jp/en/"},
+{f:"Kyoto → Tokyo (Nozomi)",d:"2h10",p:"¥14 170",url:"https://smart-ex.jp/en/"},
+{f:"Tokyo → Kamakura",d:"55-60 min",p:"¥940 JR",url:"https://www.jreast.co.jp/e/"},
+]},
+{title:"TOKYO — DEPUIS AKASAKA (hôtel)",rows:[
+{f:"Akasaka → Shibuya",d:"15-20 min",p:"¥200-260",url:"https://www.tokyometro.jp/en/"},
+{f:"Akasaka → Shinjuku",d:"15-20 min",p:"¥200-260",url:"https://www.tokyometro.jp/en/"},
+{f:"Akasaka → Omotesando (VENT)",d:"15-20 min",p:"¥170-220",url:"https://www.tokyometro.jp/en/"},
+{f:"Akasaka → Asakusa",d:"25-30 min",p:"¥260-310",url:"https://www.tokyometro.jp/en/"},
+{f:"Tokyo Metro 72h Pass",d:"Illimité",p:"¥1 500 🔥",url:"https://www.tokyometro.jp/en/ticket/travel/index.html"},
+]},
+];
+
+const HOTELS=[
+{city:"Osaka",n:"Hotel Forza Osaka Kitahama",dates:"27 → 28 Juillet (1 nuit)",addr:"2-2-21 Imabashi, Chuo-ku, Osaka",ci:"Check-in 14h (dépose bagages OK avant)",co:"Check-out 11h"},
+{city:"Kyoto",n:"Hop Inn Kyoto Shijo Omiya",dates:"28 Juillet → 1 Août (4 nuits)",addr:"14-2 Mibubojocho, Nakagyo Ward, Kyoto",ci:"Check-in dès 15h",co:"Check-out 11h"},
+{city:"Tokyo",n:"Akasaka Guesthouse HIVE",dates:"1 → 9 Août (8 nuits)",addr:"2-7-2 Akasaka RS Building, Minato-ku, Tokyo",ci:"Check-in 16h-21h",co:"Check-out 11h"},
+];
+
+let curCity='all',openD={},openT={},isDark=false;
+
+function toggleTheme(){
+  isDark=!isDark;
+  document.body.classList.toggle('dark',isDark);
+  document.getElementById('themeToggle').textContent=isDark?'☀️':'🌙';
+}
+
+function switchTab(tab,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+}
+
+function filterCity(city,btn){
+  curCity=city;
+  document.querySelectorAll('.cf-btn').forEach(b=>{
+    const dc=b.dataset.city;
+    if(dc){const c=CITY[dc].c;b.style.background='transparent';b.style.color=c;b.style.borderColor=c;}
+    else{b.style.background='transparent';b.style.color='var(--text-dim)';b.style.borderColor='var(--border)';}
+  });
+  if(city==='all'){btn.style.background='var(--text-title)';btn.style.color='var(--bg)';btn.style.borderColor='var(--text-title)';}
+  else{const c=CITY[city].c;btn.style.background=c;btn.style.color='#fff';btn.style.borderColor=c;}
+  renderDays();
+}
+
+function toggleDay(n){openD[n]=!openD[n];renderDays();}
+function toggleTip(i){openT[i]=!openT[i];renderTips();}
+
+function renderDays(){
+  const fd=curCity==='all'?DAYS:DAYS.filter(d=>d.city===curCity);
+  document.getElementById('daysList').innerHTML=fd.map(day=>{
+    const ci=CITY[day.city],open=openD[day.n];
+    const badge=day.special==='party'?`<span class="party-b">🎉 SOIRÉE VENT</span>`:
+      day.special==='depart'?`<span class="depart-b">✈️ DÉPART</span>`:
+      day.special==='booked'?`<span class="booked-b">✅ RÉSERVÉ</span>`:'';
+    const acts=open?day.acts.map(a=>`<div class="activity">
+      <div class="act-time">${a.t||''}</div>
+      <div class="act-icon">${a.e}</div>
+      <div class="act-body">
+        <div class="act-name">${a.a}</div>
+        <div class="act-sub">${a.s}</div>
+        ${a.tip?`<div class="act-tip">${a.tip}</div>`:''}
+        ${a.links&&a.links.length?`<div class="act-links">${a.links.join('')}</div>`:''}
+      </div></div>`).join(''):'';
+    return`<div class="day-card${open?' expanded':''}">
+      <div class="day-header" style="border-left-color:${ci.c}" onclick="toggleDay(${day.n})">
+        <div class="day-num" style="background:${ci.c}18;color:${ci.c};border:1px solid ${ci.c}33">J${day.n}</div>
+        <div class="day-meta">
+          <div class="day-date">${day.d} ${badge}</div>
+          <div class="day-title">${day.title}</div>
+          <div class="highlights">${day.hl.map(h=>`<span class="hl-tag">${h}</span>`).join('')}</div>
+        </div>
+        <div class="chevron" style="${open?'transform:rotate(180deg)':''}">▼</div>
+      </div>
+      ${open?`<div class="day-content">${acts}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function renderTips(){
+  document.getElementById('tipsGrid').innerHTML=TIPS.map((tg,i)=>`<div class="card">
+    <div class="card-header" onclick="toggleTip(${i})">${tg.cat}
+      <span class="chevron" style="${openT[i]?'transform:rotate(180deg)':''}">▼</span>
+    </div>
+    ${openT[i]?`<div class="card-body">${tg.items.map(it=>`<div class="tip-row"><span class="tip-dot">●</span><span>${it}</span></div>`).join('')}</div>`:''}
+  </div>`).join('');
+}
+
+function renderTransport(){
+  const cards=ROUTES.map(r=>`<div class="route-card">
+    <div class="route-section-title">${r.title}</div>
+    ${r.rows.map(rw=>`<div class="route-row">
+      <div class="route-from">${rw.f}</div>
+      <div class="route-dur">${rw.d}</div>
+      <div class="route-price">${rw.p}</div>
+      <a href="${rw.url}" target="_blank" rel="noopener" class="route-btn">→</a>
+    </div>`).join('')}
+  </div>`).join('');
+
+  const hotels=`<div class="route-card">
+    <div class="route-section-title">🏨 Hébergements</div>
+    ${HOTELS.map(h=>`<div class="route-row" style="align-items:flex-start;flex-wrap:wrap">
+      <div class="route-from" style="min-width:200px">
+        <strong style="color:var(--text-title)">${h.n}</strong><br>
+        <span style="font-size:11px;color:var(--text-faint)">${h.addr}</span><br>
+        <span style="font-size:11px;color:var(--text-dim)">${h.dates} · ${h.ci} · ${h.co}</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.n+', '+h.addr)}" target="_blank" rel="noopener" class="route-btn">📍 Maps</a>
+    </div>`).join('')}
+  </div>`;
+
+  const verdict=`<div class="verdict-box">
+    <strong style="color:var(--amber-text)">Verdict JR Pass</strong> — Pour cet itinéraire, le JR Pass 14 jours (~¥50 000) <strong>n'est pas rentable</strong>. La somme des trajets réels est ~¥17 000-20 000.<br><br>
+    <strong style="color:var(--text-title)">Recommandation optimale :</strong><br>
+    · Carte ICOCA à KIX (~¥2 000 rechargeable)<br>
+    · Shinkansen Kyoto → Tokyo acheté sur <a href="https://smart-ex.jp/en/" target="_blank" style="color:var(--map-text);text-decoration:underline">Smart EX</a> (~¥14 170)<br>
+    · Tokyo Metro 72h Pass (~¥1 500)<br>
+    <strong style="color:var(--conf-text)">Économie estimée vs JR Pass : ~¥28 000 💰</strong>
+  </div>`;
+
+  const budget=`<div class="budget-card">
+    <div class="route-section-title" style="margin-bottom:10px">Budget estimatif / jour</div>
+    <div class="budget-row"><span>🏨 Hébergement</span><span>¥4 000 – 8 000</span></div>
+    <div class="budget-row"><span>🍜 Nourriture (3 repas)</span><span>¥3 000 – 6 000</span></div>
+    <div class="budget-row"><span>🚇 Transport local</span><span>¥500 – 1 500</span></div>
+    <div class="budget-row"><span>🏯 Entrées & activités</span><span>¥1 000 – 3 000</span></div>
+    <div class="budget-row" style="padding-top:8px;margin-top:4px;border-top:1px solid var(--border-light)"><span>TOTAL / jour (hors JDM/VENT/teamLab)</span><span>¥8 000 – 18 500</span></div>
+  </div>`;
+
+  document.getElementById('transportSection').innerHTML=cards+hotels+verdict+budget;
+}
+
+renderDays();renderTips();renderTransport();
+</script>
+</body>
+</html>
